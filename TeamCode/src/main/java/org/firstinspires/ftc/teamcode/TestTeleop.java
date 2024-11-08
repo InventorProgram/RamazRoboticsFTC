@@ -7,11 +7,13 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 @TeleOp(name = "Into_the_Deep_Teleop", group = "Iterative OpMode")
 
 public class TestTeleop extends OpMode {
-    Gamepad Gamepad;
+    Gamepad Gamepad1;
     DcMotor frontLeftMotor;
     DcMotor frontRightMotor;
     DcMotor backLeftMotor;
     DcMotor backRightMotor;
+    DcMotor armMotor;
+    DcMotor wristMotor;
 
     Double ticks; //Create ticks variable for each motor. Each motor has a number of ticks per rotation. This can be used to make half-turns
     Double newtarget;
@@ -34,9 +36,9 @@ public class TestTeleop extends OpMode {
     }
 
     public void mecanum_set_power() {
-        double y = Gamepad.left_stick_y;
-        double x = -Gamepad.left_stick_x * 1.1;
-        double r = -Gamepad.right_stick_x;
+        double y = Gamepad1.left_stick_y;
+        double x = -Gamepad1.left_stick_x * 1.1;
+        double r = -Gamepad1.right_stick_x;
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(r), 1);
 
         double frontLeftPower = (y + x + r) / denominator;
