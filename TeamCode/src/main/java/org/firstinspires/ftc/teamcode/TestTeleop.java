@@ -4,18 +4,24 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
-@TeleOp(name =  "FTC_bot_2024", group = "Iterative OpMode")
+@TeleOp(name = "Into_the_Deep_Teleop", group = "Iterative OpMode")
 
 public class TestTeleop extends OpMode {
-    Gamepad Gamepad = new Gamepad();
-    DcMotor frontLeftMotor = null;
-    DcMotor frontRightMotor =  null;
-    DcMotor backLeftMotor = null;
-    DcMotor backRightMotor = null;
+    Gamepad Gamepad;
+    DcMotor frontLeftMotor;
+    DcMotor frontRightMotor;
+    DcMotor backLeftMotor;
+    DcMotor backRightMotor;
+
+    Double ticks; //Create ticks variable for each motor. Each motor has a number of ticks per rotation. This can be used to make half-turns
+    Double newtarget;
 
     @Override
     public void init() { //This runs when hitting the init button on the driver station
 
+        telemetry.addData("Hardware: ","Initialized");
+
+        //Hardware mapping
         frontLeftMotor = hardwareMap.get(DcMotor.class, "frontLeftMotor");
         frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
         backLeftMotor = hardwareMap.get(DcMotor.class, " backLeftMotor");
@@ -24,7 +30,10 @@ public class TestTeleop extends OpMode {
 
     @Override
     public void loop() { //This repeats when you hit the start button
+        mecanum_set_power();
+    }
 
+    public void mecanum_set_power() {
         double y = Gamepad.left_stick_y;
         double x = -Gamepad.left_stick_x * 1.1;
         double r = -Gamepad.right_stick_x;
