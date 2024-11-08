@@ -14,7 +14,6 @@ public class TestTeleop extends OpMode {
     DcMotor backRightMotor;
     DcMotor armMotor;
     DcMotor wristMotor;
-
     Double ticks; //Create ticks variable for each motor. Each motor has a number of ticks per rotation. This can be used to make half-turns
     Double newtarget;
 
