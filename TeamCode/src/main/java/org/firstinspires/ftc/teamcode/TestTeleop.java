@@ -1,9 +1,17 @@
+/*
+Documentation:
+insert-useful info here
+*/
+
+
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
+
 @TeleOp(name = "Into_the_Deep_Teleop")
 
 public class TestTeleop extends OpMode {
@@ -13,23 +21,27 @@ public class TestTeleop extends OpMode {
     DcMotor backLeftMotor;
     DcMotor backRightMotor;
     DcMotor armMotor;
-    DcMotor wristMotor;
+    CRServo wristServo;
+    CRServo intakeServo;
     double ticks; //100.0 is a placeholder. Create ticks variable for each motor. Each motor has a number of ticks per rotation. This can be used to make half-turns
     double newTarget;
-    double target_position;
 
     @Override
     public void init() { //This runs when hitting the init button on the driver station
 
         telemetry.addData("Hardware: ","Initialized");
 
-        //Hardware mapping
+        //Hardware mapping gives each hardware object a name, which must be entered in the robot's configuration
+        //Motor Mapping
         frontLeftMotor = hardwareMap.get(DcMotor.class, "frontLeftMotor");
         frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
         backLeftMotor = hardwareMap.get(DcMotor.class, " backLeftMotor");
         backRightMotor = hardwareMap.get(DcMotor.class, " backRightMotor");
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
-        wristMotor = hardwareMap.get(DcMotor.class,"wristMotor");
+
+        //Servo Mapping
+        intakeServo = hardwareMap.get(CRServo.class,"intakeServo");
+        wristServo = hardwareMap.get(CRServo.class, "wristServo");
 
         //Setting motors to run using encoders
         DcMotor[] motors = {frontLeftMotor,frontRightMotor,backLeftMotor,backRightMotor};
@@ -41,7 +53,9 @@ public class TestTeleop extends OpMode {
     @Override
     public void loop() { //This repeats when you hit the start button
         mecanum_input();
-        arm_input();
+        arm();
+        intake();
+        wrist();
     }
 
     public void mecanum_input() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
@@ -61,7 +75,7 @@ public class TestTeleop extends OpMode {
         backRightMotor.setPower(backRightPower);
     }
 
-    public void arm_input(){
+    public void arm(){
         //armMotor (claw-arm up/down)
         if (Gamepad1.dpad_up) {
             armMotor.setPower(0.5);
@@ -75,6 +89,30 @@ public class TestTeleop extends OpMode {
         telemetry.addData("Motor Ticks: ", armMotor.getCurrentPosition());
     }
 
+    public void intake(){
+        //intake_servo (how the arm retrieves the game-pieces)
+        if (Gamepad1.a){
+            intakeServo.setPower(1);
+        }
+        else if (Gamepad1.b){
+            intakeServo.setPower(-1);
+        }
+        else {
+            intakeServo.setPower(0);
+        }
+    }
+
+    public void wrist(){
+        if (Gamepad1.a){
+            wristServo.setPower(1);
+        }
+        else if (Gamepad1.b){
+            wristServo.setPower(-1);
+        }
+        else {
+            wristServo.setPower(0);
+        }
+    }
     public void encoder(DcMotor motor, int turnage){ //Encoder turns 360°/turnage (Ex: 360°/2 = 180° → turns halfway)
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         newTarget = ticks/turnage;
