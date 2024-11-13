@@ -1,9 +1,9 @@
 /*
 Documentation:
 insert-useful info here
+
+- Plug in usb-a in computer and a usb-c out to the robot's control hub
 */
-
-
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -23,7 +23,7 @@ public class TestTeleop extends OpMode {
     DcMotor armMotor;
     CRServo wristServo;
     CRServo intakeServo;
-    double ticks; //100.0 is a placeholder. Create ticks variable for each motor. Each motor has a number of ticks per rotation. This can be used to make half-turns
+    double ticks; //Create ticks variable for each motor. Each motor has a number of ticks per rotation. This can be used to make half-turns
     double newTarget;
 
     @Override
@@ -113,7 +113,7 @@ public class TestTeleop extends OpMode {
             wristServo.setPower(0);
         }
     }
-    public void encoder(DcMotor motor, int turnage){ //Encoder turns 360°/turnage (Ex: 360°/2 = 180° → turns halfway)
+    public void encoder(DcMotor motor, int turnage) { //Encoder turns 360°/turnage (Ex: 360°/2 = 180° → turns halfway)
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         newTarget = ticks/turnage;
         motor.setTargetPosition((int)newTarget);
@@ -121,7 +121,7 @@ public class TestTeleop extends OpMode {
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    public void motor_goto(DcMotor motor, int target_position){ //For example, target_position=0 would reset the motor's position
+    public void motor_goto(DcMotor motor, int target_position) { //For example, target_position=0 would reset the motor's position
         motor.setTargetPosition(target_position);
         motor.setPower(0.8);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
