@@ -10,22 +10,24 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 @TeleOp(name = "Into_the_Deep_Teleop")
 
 public class TestTeleop extends OpMode {
-    Gamepad currentGamepad1 = new Gamepad();
-    Gamepad previousGamepad1 = new Gamepad();
-    DcMotor frontLeftMotor;
-    DcMotor frontRightMotor;
-    DcMotor backLeftMotor;
-    DcMotor backRightMotor;
-    DcMotor armMotor;
-    CRServo wristServo;
-    CRServo intakeServo;
-    double ticks; //Create ticks variable for each motor. Each motor has a number of ticks per rotation. This can be used to make half-turns
-    double newTarget;
+    //public Gamepad currentGamepad1 = new Gamepad();
+    //public Gamepad previousGamepad1 = new Gamepad();
+    public DcMotor frontLeftMotor;
+    public DcMotor frontRightMotor;
+    public DcMotor backLeftMotor;
+    public DcMotor backRightMotor;
+    public DcMotor armMotor;
+    public CRServo wristServo;
+    public CRServo intakeServo;
+    public double ticks; //Create ticks variable for each motor. Each motor has a number of ticks per rotation. This can be used to make half-turns
+    public double newTarget;
 
     @Override
     public void init() { //This runs when hitting the init button on the driver station
@@ -54,12 +56,12 @@ public class TestTeleop extends OpMode {
     @Override
     public void loop() { //This repeats when you hit the start button
 
-        previousGamepad1.copy(currentGamepad1);
-        currentGamepad1.copy(gamepad1);
+        //previousGamepad1.copy(currentGamepad1);
+        //currentGamepad1.copy(gamepad1);
 
-        double y = currentGamepad1.left_stick_y;
-        double x = -currentGamepad1.left_stick_x * 1.1;
-        double r = -currentGamepad1.right_stick_x;
+        double y = gamepad2.left_stick_y;
+        double x = -gamepad2.left_stick_x * 1.1;
+        double r = -gamepad2.right_stick_x;
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(r), 1);
 
         telemetry.addData("y: ",y);
@@ -85,10 +87,10 @@ public class TestTeleop extends OpMode {
 
     public void arm(){
         //armMotor (claw-arm up/down)
-        if (currentGamepad1.dpad_up) {
+        if (gamepad2.dpad_up) {
             armMotor.setPower(0.5);
         }
-        else if (currentGamepad1.dpad_down){
+        else if (gamepad2.dpad_down){
             armMotor.setPower(-0.5);
         }
         else {
@@ -99,10 +101,10 @@ public class TestTeleop extends OpMode {
 
     public void intake(){
         //intake_servo (how the arm retrieves the game-pieces)
-        if (currentGamepad1.a){
+        if (gamepad2.a){
             intakeServo.setPower(1);
         }
-        else if (currentGamepad1.b){
+        else if (gamepad2.b){
             intakeServo.setPower(-1);
         }
         else {
@@ -111,10 +113,10 @@ public class TestTeleop extends OpMode {
     }
 
     public void wrist(){
-        if (currentGamepad1.a){
+        if (gamepad2.a){
             wristServo.setPower(1);
         }
-        else if (currentGamepad1.b){
+        else if (gamepad2.b){
             wristServo.setPower(-1);
         }
         else {
