@@ -15,7 +15,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 @TeleOp(name = "Into_the_Deep_Teleop")
 
 public class TestTeleop extends OpMode {
-    Gamepad Gamepad1;
+    Gamepad currentGamepad1 = this.gamepad2;
+    Gamepad previousGamepad1 = this.gamepad2;
     DcMotor frontLeftMotor;
     DcMotor frontRightMotor;
     DcMotor backLeftMotor;
@@ -52,16 +53,13 @@ public class TestTeleop extends OpMode {
 
     @Override
     public void loop() { //This repeats when you hit the start button
-        mecanum_input();
-        arm();
-        intake();
-        wrist();
-    }
 
-    public void mecanum_input() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
-        double y = Gamepad1.left_stick_y;
-        double x = -Gamepad1.left_stick_x * 1.1;
-        double r = -Gamepad1.right_stick_x;
+        previousGamepad1.copy(currentGamepad1);
+        currentGamepad1.copy(gamepad1);
+
+        double y = currentGamepad1.left_stick_y;
+        double x = -currentGamepad1.left_stick_x * 1.1;
+        double r = -currentGamepad1.right_stick_x;
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(r), 1);
 
         double frontLeftPower = (y + x + r) / denominator;
@@ -73,14 +71,22 @@ public class TestTeleop extends OpMode {
         frontRightMotor.setPower(frontRightPower);
         backLeftMotor.setPower(backLeftPower);
         backRightMotor.setPower(backRightPower);
+
+        //arm();
+        //intake();
+        //wrist();
+    }
+
+    public void mecanum_input() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
+        //Drivetrain code
     }
 
     public void arm(){
         //armMotor (claw-arm up/down)
-        if (Gamepad1.dpad_up) {
+        if (currentGamepad1.dpad_up) {
             armMotor.setPower(0.5);
         }
-        else if (Gamepad1.dpad_down){
+        else if (currentGamepad1.dpad_down){
             armMotor.setPower(-0.5);
         }
         else {
@@ -91,10 +97,10 @@ public class TestTeleop extends OpMode {
 
     public void intake(){
         //intake_servo (how the arm retrieves the game-pieces)
-        if (Gamepad1.a){
+        if (currentGamepad1.a){
             intakeServo.setPower(1);
         }
-        else if (Gamepad1.b){
+        else if (currentGamepad1.b){
             intakeServo.setPower(-1);
         }
         else {
@@ -103,10 +109,10 @@ public class TestTeleop extends OpMode {
     }
 
     public void wrist(){
-        if (Gamepad1.a){
+        if (currentGamepad1.a){
             wristServo.setPower(1);
         }
-        else if (Gamepad1.b){
+        else if (currentGamepad1.b){
             wristServo.setPower(-1);
         }
         else {
