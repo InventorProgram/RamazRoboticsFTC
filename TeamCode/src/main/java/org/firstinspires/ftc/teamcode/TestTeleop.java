@@ -15,8 +15,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 @TeleOp(name = "Into_the_Deep_Teleop")
 
 public class TestTeleop extends OpMode {
-    Gamepad currentGamepad1 = this.gamepad2;
-    Gamepad previousGamepad1 = this.gamepad2;
+    Gamepad currentGamepad1 = new Gamepad();
+    Gamepad previousGamepad1 = new Gamepad();
     DcMotor frontLeftMotor;
     DcMotor frontRightMotor;
     DcMotor backLeftMotor;
@@ -61,6 +61,8 @@ public class TestTeleop extends OpMode {
         double x = -currentGamepad1.left_stick_x * 1.1;
         double r = -currentGamepad1.right_stick_x;
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(r), 1);
+
+        telemetry.addData("y: ",y);
 
         double frontLeftPower = (y + x + r) / denominator;
         double frontRightPower = (y - x - r) / denominator;
