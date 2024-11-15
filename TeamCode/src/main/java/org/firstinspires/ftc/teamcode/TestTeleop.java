@@ -10,15 +10,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
 @TeleOp(name = "Into_the_Deep_Teleop")
 
 public class TestTeleop extends OpMode {
-    //public Gamepad currentGamepad1 = new Gamepad();
-    //public Gamepad previousGamepad1 = new Gamepad();
+
     public DcMotor frontLeftMotor;
     public DcMotor frontRightMotor;
     public DcMotor backLeftMotor;
@@ -55,9 +51,6 @@ public class TestTeleop extends OpMode {
 
     @Override
     public void loop() { //This repeats when you hit the start button
-
-        //previousGamepad1.copy(currentGamepad1);
-        //currentGamepad1.copy(gamepad1);
 
         double y = gamepad2.left_stick_y;
         double x = -gamepad2.left_stick_x * 1.1;
@@ -101,11 +94,12 @@ public class TestTeleop extends OpMode {
 
     public void intake(){
         //intake_servo (how the arm retrieves the game-pieces)
-        if (gamepad2.a){
-            intakeServo.setPower(1);
-        }
-        else if (gamepad2.b){
+        if (gamepad2.left_bumper){
             intakeServo.setPower(-1);
+            telemetry.addData("Button pressed, motor should go. ",gamepad2.a);
+        }
+        else if (gamepad2.left_trigger > 0.2){
+            intakeServo.setPower(1);
         }
         else {
             intakeServo.setPower(0);
