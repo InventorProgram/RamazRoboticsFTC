@@ -71,14 +71,14 @@ public class TestTeleop extends OpMode {
         double backLeftPower = (y - x + r) / denominator;
         double backRightPower = (y + x -r) / denominator;
 
-        frontLeftMotor.setPower(frontLeftPower);
-        frontRightMotor.setPower(frontRightPower);
-        backLeftMotor.setPower(backLeftPower);
-        backRightMotor.setPower(backRightPower);
+        frontLeftMotor.setPower(frontLeftPower/2);
+        frontRightMotor.setPower(frontRightPower/2);
+        backLeftMotor.setPower(backLeftPower/2);
+        backRightMotor.setPower(backRightPower/2);
 
-        //arm();
-        //intake();
-        //wrist();
+        arm();
+        intake();
+        wrist();
     }
 
     public void mecanum_input() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
@@ -113,10 +113,10 @@ public class TestTeleop extends OpMode {
     }
 
     public void wrist(){
-        if (gamepad2.a){
+        if (gamepad2.dpad_left){
             wristServo.setPower(1);
         }
-        else if (gamepad2.b){
+        else if (gamepad2.dpad_right){
             wristServo.setPower(-1);
         }
         else {
