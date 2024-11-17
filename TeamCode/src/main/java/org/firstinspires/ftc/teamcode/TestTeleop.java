@@ -86,6 +86,14 @@ public class TestTeleop extends OpMode {
         else if (gamepad2.dpad_down){
             armMotor.setPower(-0.5);
         }
+        else if (gamepad2.x){
+            while (true){
+                armMotor.setPower(-1);
+                if (gamepad2.y){
+                    break;
+                }
+            }
+        }
         else {
             armMotor.setPower(0);
         }
@@ -99,21 +107,17 @@ public class TestTeleop extends OpMode {
             telemetry.addData("Button pressed, motor should go. ",gamepad2.a);
         }
         else if (gamepad2.left_trigger > 0.2){
-            intakeServo.setPower(1);
-        }
-        else {
-            intakeServo.setPower(0);
+            intakeServo.setPower(0.5);
         }
     }
 
     public void wrist(){
         if (gamepad2.dpad_left){
-            wristServo.setPower(1);
+            wristServo.setPower(0.5);
         }
         else if (gamepad2.dpad_right){
-            wristServo.setPower(-1);
-        }
-        else {
+            wristServo.setPower(-0.5);
+        } else {
             wristServo.setPower(0);
         }
     }
