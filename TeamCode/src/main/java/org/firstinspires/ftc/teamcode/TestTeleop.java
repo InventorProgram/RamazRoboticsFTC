@@ -64,10 +64,10 @@ public class TestTeleop extends OpMode {
         double backLeftPower = (y - x + r) / denominator;
         double backRightPower = (y + x -r) / denominator;
 
-        frontLeftMotor.setPower(frontLeftPower/2);
-        frontRightMotor.setPower(frontRightPower/2);
-        backLeftMotor.setPower(backLeftPower/2);
-        backRightMotor.setPower(backRightPower/2);
+        frontLeftMotor.setPower(frontLeftPower);
+        frontRightMotor.setPower(frontRightPower);
+        backLeftMotor.setPower(backLeftPower);
+        backRightMotor.setPower(backRightPower);
 
         arm();
         intake();
@@ -80,19 +80,16 @@ public class TestTeleop extends OpMode {
 
     public void arm(){
         //armMotor (claw-arm up/down)
-        if (gamepad2.dpad_up) {
+        if (gamepad2.y) {
             armMotor.setPower(0.5);
         }
-        else if (gamepad2.dpad_down){
+        else if (gamepad2.a){
             armMotor.setPower(-0.5);
         }
-        else if (gamepad2.x){
-            while (true){
+        else if (gamepad2.right_trigger > 0.2){
+            do {
                 armMotor.setPower(1);
-                if (gamepad2.y){
-                    break;
-                }
-            }
+            } while (gamepad2.right_bumper);
         }
         else {
             armMotor.setPower(0);
@@ -112,10 +109,10 @@ public class TestTeleop extends OpMode {
     }
 
     public void wrist(){
-        if (gamepad2.dpad_left){
+        if (gamepad2.x){
             wristServo.setPower(0.5);
         }
-        else if (gamepad2.dpad_right){
+        else if (gamepad2.b){
             wristServo.setPower(-0.5);
         } else {
             wristServo.setPower(0);
