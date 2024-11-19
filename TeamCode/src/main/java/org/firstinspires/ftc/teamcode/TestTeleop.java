@@ -51,31 +51,30 @@ public class TestTeleop extends OpMode {
 
     @Override
     public void loop() { //This repeats when you hit the start button
-
-        double y = gamepad2.left_stick_y;
-        double x = -gamepad2.left_stick_x * 1.1;
-        double r = -gamepad2.right_stick_x;
-        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(r), 1);
-
-        telemetry.addData("y: ",y);
-
-        double frontLeftPower = (y + x + r) / denominator;
-        double frontRightPower = (y - x - r) / denominator;
-        double backLeftPower = (y - x + r) / denominator;
-        double backRightPower = (y + x -r) / denominator;
-
-        frontLeftMotor.setPower(frontLeftPower);
-        frontRightMotor.setPower(frontRightPower);
-        backLeftMotor.setPower(backLeftPower);
-        backRightMotor.setPower(backRightPower);
-
+        mecanum_input();
         arm();
         intake();
         wrist();
     }
 
     public void mecanum_input() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
-        //Drivetrain code
+        //Joystick variables and denominator
+        double y = gamepad2.left_stick_y;
+        double x = -gamepad2.left_stick_x * 1.1;
+        double r = -gamepad2.right_stick_x;
+        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(r), 1);
+
+        //Power variables calculated from joystick variables and denominator
+        double frontLeftPower = (y + x + r) / denominator;
+        double frontRightPower = (y - x - r) / denominator;
+        double backLeftPower = (y - x + r) / denominator;
+        double backRightPower = (y + x -r) / denominator;
+
+        //Setting power ot motors using the power variables
+        frontLeftMotor.setPower(frontLeftPower);
+        frontRightMotor.setPower(frontRightPower);
+        backLeftMotor.setPower(backLeftPower);
+        backRightMotor.setPower(backRightPower);
     }
 
     public void arm(){
@@ -90,10 +89,10 @@ public class TestTeleop extends OpMode {
             while (true){
                 armMotor.setPower(-1);
             }
-        }
-        else {
+        } else {
             armMotor.setPower(0);
         }
+
         telemetry.addData("Motor Ticks: ", armMotor.getCurrentPosition());
     }
 
@@ -118,6 +117,7 @@ public class TestTeleop extends OpMode {
             wristServo.setPower(0);
         }
     }
+
     public void encoder(DcMotor motor, int turnage) { //Encoder turns 360°/turnage (Ex: 360°/2 = 180° → turns halfway)
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         newTarget = ticks/turnage;
