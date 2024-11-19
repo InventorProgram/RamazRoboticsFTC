@@ -100,7 +100,6 @@ public class TestTeleop extends OpMode {
         //intake_servo (how the arm retrieves the game-pieces)
         if (gamepad2.left_bumper){
             intakeServo.setPower(-1);
-            telemetry.addData("Button pressed, motor should go. ",gamepad2.a);
         }
         else if (gamepad2.left_trigger > 0.2){
             intakeServo.setPower(0.5);
