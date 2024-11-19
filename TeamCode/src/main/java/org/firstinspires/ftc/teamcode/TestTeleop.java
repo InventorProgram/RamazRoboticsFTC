@@ -87,9 +87,9 @@ public class TestTeleop extends OpMode {
             armMotor.setPower(-0.5);
         }
         else if (gamepad2.right_trigger > 0.2){
-            do {
-                armMotor.setPower(1);
-            } while (gamepad2.right_bumper);
+            while (true){
+                armMotor.setPower(-1);
+            }
         }
         else {
             armMotor.setPower(0);
