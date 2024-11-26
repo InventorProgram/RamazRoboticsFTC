@@ -5,7 +5,6 @@ insert-useful info here
 - Plug in usb-a in computer and a usb-c out to the robot's control hub
 */
 package org.firstinspires.ftc.teamcode;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -22,8 +21,6 @@ public class TestTeleop extends OpMode {
     public DcMotor armMotor;
     public CRServo wristServo;
     public CRServo intakeServo;
-    public double ticks; //Create ticks variable for each motor. Each motor has a number of ticks per rotation. This can be used to make half-turns
-    public double newTarget;
 
     @Override
     public void init() { //This runs when hitting the init button on the driver station
@@ -115,19 +112,5 @@ public class TestTeleop extends OpMode {
         } else {
             wristServo.setPower(0);
         }
-    }
-
-    public void encoder(DcMotor motor, int turnage) { //Encoder turns 360°/turnage (Ex: 360°/2 = 180° → turns halfway)
-        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        newTarget = ticks/turnage;
-        motor.setTargetPosition((int)newTarget);
-        motor.setPower(0.5);
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
-
-    public void motor_goto(DcMotor motor, int target_position) { //For example, target_position=0 would reset the motor's position
-        motor.setTargetPosition(target_position);
-        motor.setPower(0.8);
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 }
