@@ -44,8 +44,24 @@ public class Robot {
             motor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         }
     }
-    public void move() {
+    public void move(double direction, double magnitude) { //Direction is an angle, magnitude is a fraction of max_power
 
+        double y; //gamepad2.left_stick_y;
+        double x; //-gamepad2.left_stick_x * 1.1;
+        double r; //-gamepad2.right_stick_x;
+        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(r), 1);
+
+        //Power variables calculated from joystick variables and denominator
+        double frontLeftPower = (y + x + r) / denominator;
+        double frontRightPower = (y - x - r) / denominator;
+        double backLeftPower = (y - x + r) / denominator;
+        double backRightPower = (y + x -r) / denominator;
+
+        //Setting power ot motors using the power variables
+        frontLeftMotor.setPower(frontLeftPower);
+        frontRightMotor.setPower(frontRightPower);
+        backLeftMotor.setPower(backLeftPower);
+        backRightMotor.setPower(backRightPower);
     }
 
     public void rotate(DcMotor motor, int degrees) { //Motor rotates by degrees/360 (360 being a full rotation)
