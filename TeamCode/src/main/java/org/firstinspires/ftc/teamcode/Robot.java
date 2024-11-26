@@ -49,10 +49,11 @@ public class Robot {
     }
     public void move(double direction_angle, double magnitude) { //Direction is an angle, magnitude is a fraction of 1 (Ex: 0.6/1)
 
+        //To do: have input of revolutions per second for now. Distance will also be measured in revolutions.
+
         double y = magnitude*sin(direction_angle); //In teleop: gamepad2.left_stick_y;
         double x = -magnitude*cos(direction_angle); //In teleop: -gamepad2.left_stick_x * 1.1;
         double r = 0; //In teleop: -gamepad2.right_stick_x;
-
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(r), 1);
 
         //Power variables calculated from joystick variables and denominator

@@ -15,6 +15,5 @@ public class AutonomousAutomaton extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-
     }
 }

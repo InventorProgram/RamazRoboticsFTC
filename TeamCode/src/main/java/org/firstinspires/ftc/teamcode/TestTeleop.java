@@ -8,17 +8,17 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @TeleOp(name = "Into_the_Deep_Teleop")
 
 public class TestTeleop extends OpMode {
 
-    public DcMotor frontLeftMotor;
-    public DcMotor frontRightMotor;
-    public DcMotor backLeftMotor;
-    public DcMotor backRightMotor;
-    public DcMotor armMotor;
+    public DcMotorEx frontLeftMotor;
+    public DcMotorEx frontRightMotor;
+    public DcMotorEx backLeftMotor;
+    public DcMotorEx backRightMotor;
+    public DcMotorEx armMotor;
     public CRServo wristServo;
     public CRServo intakeServo;
 
@@ -29,20 +29,20 @@ public class TestTeleop extends OpMode {
 
         //Hardware mapping gives each hardware object a name, which must be entered in the robot's configuration
         //Motor Mapping
-        frontLeftMotor = hardwareMap.get(DcMotor.class, "frontLeftMotor");
-        frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
-        backLeftMotor = hardwareMap.get(DcMotor.class, " backLeftMotor");
-        backRightMotor = hardwareMap.get(DcMotor.class, " backRightMotor");
-        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+        frontLeftMotor = hardwareMap.get(DcMotorEx.class, "frontLeftMotor");
+        frontRightMotor = hardwareMap.get(DcMotorEx.class, "frontRightMotor");
+        backLeftMotor = hardwareMap.get(DcMotorEx.class, " backLeftMotor");
+        backRightMotor = hardwareMap.get(DcMotorEx.class, " backRightMotor");
+        armMotor = hardwareMap.get(DcMotorEx.class, "armMotor");
 
         //Servo Mapping
         intakeServo = hardwareMap.get(CRServo.class,"intakeServo");
         wristServo = hardwareMap.get(CRServo.class, "wristServo");
 
         //Setting motors to run using encoders
-        DcMotor[] motors = {frontLeftMotor,frontRightMotor,backLeftMotor,backRightMotor};
-        for (DcMotor motor: motors) {
-            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        DcMotorEx[] motors = {frontLeftMotor,frontRightMotor,backLeftMotor,backRightMotor};
+        for (DcMotorEx motor: motors) {
+            motor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         }
     }
 
