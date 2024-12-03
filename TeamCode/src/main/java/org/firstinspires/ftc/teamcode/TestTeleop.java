@@ -85,6 +85,9 @@ public class TestTeleop extends OpMode {
         else if (gamepad2.right_trigger > 0.2){
             while (true){
                 armMotor.setPower(-1);
+                if (gamepad2.right_bumper){
+                    break;
+                }
             }
         } else {
             armMotor.setPower(0);
@@ -95,20 +98,24 @@ public class TestTeleop extends OpMode {
 
     public void intake(){
         //intake_servo (how the arm retrieves the game-pieces)
-        while (gamepad2.left_bumper){
+        if (gamepad2.left_bumper){
             intakeServo.setPower(-1);
         }
-        while (gamepad2.left_trigger > 0.2){
+        else if (gamepad2.left_trigger > 0.2){
             intakeServo.setPower(0.5);
+        } else {
+            intakeServo.setPower(0.0);
         }
     }
 
     public void wrist(){
-        while (gamepad2.x){
+        if (gamepad2.x){
             wristServo.setPower(0.5);
         }
-        while (gamepad2.b) {
+        else if (gamepad2.b) {
             wristServo.setPower(-0.5);
+        } else {
+            wristServo.setPower(0.0);
         }
     }
 }
