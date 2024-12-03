@@ -95,22 +95,20 @@ public class TestTeleop extends OpMode {
 
     public void intake(){
         //intake_servo (how the arm retrieves the game-pieces)
-        if (gamepad2.left_bumper){
+        while (gamepad2.left_bumper){
             intakeServo.setPower(-1);
         }
-        else if (gamepad2.left_trigger > 0.2){
+        while (gamepad2.left_trigger > 0.2){
             intakeServo.setPower(0.5);
         }
     }
 
     public void wrist(){
-        if (gamepad2.x){
+        while (gamepad2.x){
             wristServo.setPower(0.5);
         }
-        else if (gamepad2.b){
+        while (gamepad2.b) {
             wristServo.setPower(-0.5);
-        } else {
-            wristServo.setPower(0);
         }
     }
 }

@@ -53,7 +53,7 @@ public class Robot {
     public void move(double direction_degrees, double distance) throws InterruptedException { //Direction is an angle, distance is in revolutions (distance covered by one motor revolution)
         double direction_radians = direction_degrees/180.0; //Convert inputted degrees into radians
         this.velocity = 0.5*drivetrain_motor_ticks; //motor_ticks/seconds (in this case half a revolution)
-        time = this.velocity*distance; //Time is how long the robot will run at that velocity
+        time = this.velocity/distance; //Time is how long the robot will run at that velocity
         
         double y = this.velocity*sin(direction_radians); //In teleop: gamepad2.left_stick_y
         double x = -this.velocity*cos(direction_radians); //In teleop: -gamepad2.left_stick_x * 1.1
