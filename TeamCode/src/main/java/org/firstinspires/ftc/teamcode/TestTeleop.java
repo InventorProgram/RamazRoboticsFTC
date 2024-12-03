@@ -48,13 +48,13 @@ public class TestTeleop extends OpMode {
 
     @Override
     public void loop() { //This repeats when you hit the start button
-        mecanum_input();
+        mecanum_drivetrain();
         arm();
         intake();
         wrist();
     }
 
-    public void mecanum_input() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
+    public void mecanum_drivetrain() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
         //Joystick variables and denominator
         double y = gamepad2.left_stick_y;
         double x = -gamepad2.left_stick_x * 1.1;
@@ -82,10 +82,10 @@ public class TestTeleop extends OpMode {
         else if (gamepad2.a){
             armMotor.setPower(-0.5);
         }
-        else if (gamepad2.right_trigger > 0.2){
+        else if (gamepad2.right_trigger > 0.2){  //If the right trigger is pressed, the arm will close to hang the robot and block input
             while (true){
                 armMotor.setPower(-1);
-                if (gamepad2.right_bumper){
+                if (gamepad2.right_bumper){ //The right bumper can unlock the arm and unblock input
                     break;
                 }
             }
