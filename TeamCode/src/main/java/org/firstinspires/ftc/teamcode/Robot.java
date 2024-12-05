@@ -29,8 +29,7 @@ public class Robot {
     public final double wheel_radius = 4.4;
 
     public Robot(){
-
-        telemetry.addData("Hardware:", "initialized");
+        //telemetry.addData("Hardware:", "initialized");
 
         //Hardware mapping gives each hardware object a name, which must be entered in the robot's configuration
         //Motor Mapping
