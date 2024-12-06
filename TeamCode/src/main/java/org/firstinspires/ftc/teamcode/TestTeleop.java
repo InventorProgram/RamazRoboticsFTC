@@ -1,7 +1,6 @@
 /*
 Documentation:
-insert-useful info here
-
+-insert-useful info here
 - Plug in usb-a in computer and a usb-c out to the robot's control hub
 */
 package org.firstinspires.ftc.teamcode;
@@ -9,7 +8,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @TeleOp(name = "Into_the_Deep_Teleop")
 
@@ -45,7 +43,7 @@ public class TestTeleop extends OpMode {
         //Setting motors to run using encoders
         DcMotor[] motors = {frontLeftMotor,frontRightMotor,backLeftMotor,backRightMotor};
         for (DcMotor motor: motors) {
-            motor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 
@@ -55,7 +53,7 @@ public class TestTeleop extends OpMode {
         arm();
         intake();
         wrist();
-        linear_slides();
+        //linear_slides();
     }
 
     public void mecanum_drivetrain() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
@@ -63,6 +61,13 @@ public class TestTeleop extends OpMode {
         double y = gamepad2.left_stick_y;
         double x = -gamepad2.left_stick_x * 1.1;
         double r = -gamepad2.right_stick_x;
+
+        /*
+        double y = -gamepad2.right_stick_x;
+        double x = gamepad2.right_stick_y * 1.1;
+        double r = gamepad2.left_stick_y;
+        */
+
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(r), 1);
 
         //Power variables calculated from joystick variables and denominator
@@ -123,6 +128,7 @@ public class TestTeleop extends OpMode {
         }
     }
 
+    /*
     public void linear_slides(){
         if (gamepad2.dpad_up){
             slideMotor.setPower(0.4);
@@ -133,4 +139,5 @@ public class TestTeleop extends OpMode {
             slideMotor.setPower(0);
         }
     }
+    */
 }
