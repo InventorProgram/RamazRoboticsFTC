@@ -92,12 +92,10 @@ public class TestTeleop extends OpMode {
             armMotor.setPower(-0.5);
         }
         else if (gamepad2.right_trigger > 0.2){  //If the right trigger is pressed, the arm will close to hang the robot and block input
-            while (true){
+            //The right bumper can unlock the arm and unblock input
+            do {
                 armMotor.setPower(-1);
-                if (gamepad2.right_bumper){ //The right bumper can unlock the arm and unblock input
-                    break;
-                }
-            }
+            } while (!gamepad2.right_bumper);
         } else {
             armMotor.setPower(0);
         }
