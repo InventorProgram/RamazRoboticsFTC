@@ -53,20 +53,22 @@ public class TestTeleop extends OpMode {
         arm();
         intake();
         wrist();
-        //linear_slides();
+        linear_slides();
     }
 
     public void mecanum_drivetrain() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
         //Joystick variables and denominator
+
+        /* bad
         double y = gamepad2.left_stick_y;
         double x = -gamepad2.left_stick_x * 1.1;
         double r = -gamepad2.right_stick_x;
+        */
 
-        /*
         double y = -gamepad2.right_stick_x;
         double x = gamepad2.right_stick_y * 1.1;
         double r = gamepad2.left_stick_y;
-        */
+
 
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(r), 1);
 
@@ -128,7 +130,7 @@ public class TestTeleop extends OpMode {
         }
     }
 
-    /*
+
     public void linear_slides(){
         if (gamepad2.dpad_up){
             slideMotor.setPower(0.4);
@@ -139,5 +141,5 @@ public class TestTeleop extends OpMode {
             slideMotor.setPower(0);
         }
     }
-    */
+
 }
