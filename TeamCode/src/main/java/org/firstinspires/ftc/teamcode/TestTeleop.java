@@ -57,12 +57,12 @@ public class TestTeleop extends OpMode {
     }
 
     public void mecanum_drivetrain() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
-        //Joystick variables and denominator
+        //Joystick variables and denominator (this is the band-aid solution joystick mapping)
         double y = -gamepad2.right_stick_x;
         double x = gamepad2.right_stick_y * 1.1;
         double r = gamepad2.left_stick_y;
 
-        /*
+        /* (This is the original mecanum joystick mapping)
         double y = gamepad2.left_stick_y;
         double x = -gamepad2.left_stick_x * 1.1;
         double r = -gamepad2.right_stick_x;
