@@ -59,7 +59,7 @@ public class TestTeleop extends OpMode {
     public void mecanum_drivetrain() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
         //Joystick variables and denominator
         double y = -gamepad2.right_stick_x;
-        double x = gamepad2.right_stick_x * 1.1;
+        double x = gamepad2.right_stick_y * 1.1;
         double r = gamepad2.left_stick_y;
 
         /*
@@ -96,6 +96,7 @@ public class TestTeleop extends OpMode {
             do {
                 armMotor.setPower(-1);
             } while (!gamepad2.right_bumper);
+
         } else {
             armMotor.setPower(0);
         }
