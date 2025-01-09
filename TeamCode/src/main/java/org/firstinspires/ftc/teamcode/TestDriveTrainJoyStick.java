@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name = "Into_the_Deep_Teleop")
 
-public class TestTeleop extends OpMode {
+public class TestDriveTrainJoyStick extends OpMode {
 
     public DcMotor frontLeftMotor;
     public DcMotor frontRightMotor;
@@ -58,18 +58,22 @@ public class TestTeleop extends OpMode {
 
     public void mecanum_drivetrain() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
         //Joystick variables and denominator
+        frontLeftMotor.setPower(gamepad2.left_stick_y);
+        frontRightMotor.setPower(gamepad2.right_stick_y);
+        backLeftMotor.setPower(-gamepad2.left_stick_x);
+        backRightMotor.setPower(-gamepad2.right_stick_x);
 
         /* bad
         double y = gamepad2.left_stick_y;
         double x = -gamepad2.left_stick_x * 1.1;
         double r = -gamepad2.right_stick_x;
         */
-
+/*
         double y = -gamepad2.right_stick_x;
         double x = gamepad2.right_stick_y * 1.1;
         double r = gamepad2.left_stick_y;
 
-        //what does math.max do?
+
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(r), 1);
 
         //Power variables calculated from joystick variables and denominator
@@ -83,6 +87,9 @@ public class TestTeleop extends OpMode {
         frontRightMotor.setPower(frontRightPower);
         backLeftMotor.setPower(backLeftPower);
         backRightMotor.setPower(backRightPower);
+
+ */
+
     }
 
     public void arm(){
