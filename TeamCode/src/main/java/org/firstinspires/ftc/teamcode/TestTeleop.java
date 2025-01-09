@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "Into_the_Deep_Teleop")
 
@@ -19,7 +20,7 @@ public class TestTeleop extends OpMode {
     public DcMotor backRightMotor;
     public DcMotor armMotor;
     public DcMotor slideMotor; //Linear slides motor
-    public CRServo wristServo;
+    public Servo wristServo;
     public CRServo intakeServo;
 
     @Override
@@ -31,14 +32,14 @@ public class TestTeleop extends OpMode {
         //Motor Mapping
         frontLeftMotor = hardwareMap.get(DcMotor.class, "frontLeftMotor");
         frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
-        backLeftMotor = hardwareMap.get(DcMotor.class, " backLeftMotor");
-        backRightMotor = hardwareMap.get(DcMotor.class, " backRightMotor");
+        backLeftMotor = hardwareMap.get(DcMotor.class, "backLeftMotor");
+        backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
         slideMotor = hardwareMap.get(DcMotor.class,"slideMotor");
 
         //Servo Mapping
         intakeServo = hardwareMap.get(CRServo.class,"intakeServo");
-        wristServo = hardwareMap.get(CRServo.class, "wristServo");
+        wristServo = hardwareMap.get(Servo.class, "wristServo");
 
         //Setting motors to run using encoders
         DcMotor[] motors = {frontLeftMotor,frontRightMotor,backLeftMotor,backRightMotor};
@@ -53,7 +54,8 @@ public class TestTeleop extends OpMode {
         arm();
         intake();
         wrist();
-        //linear_slides();
+        linear_slides();
+        controls_telemetry();
     }
 
     public void mecanum_drivetrain() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
@@ -106,10 +108,10 @@ public class TestTeleop extends OpMode {
 
     public void intake(){
         //intake_servo (how the arm retrieves the game-pieces)
-        if (gamepad2.left_bumper){
+        if (gamepad2.dpad_right){
             intakeServo.setPower(-1);
         }
-        else if (gamepad2.left_trigger > 0.2){
+        else if (gamepad2.dpad_left){
             intakeServo.setPower(0.5);
         } else {
             intakeServo.setPower(0.0);
@@ -118,16 +120,15 @@ public class TestTeleop extends OpMode {
 
     public void wrist(){
         if (gamepad2.x){
-            wristServo.setPower(0.5);
+            wristServo.setPosition(0);
         }
         else if (gamepad2.b) {
-            wristServo.setPower(-0.5);
+            wristServo.setPosition(1);
         } else {
-            wristServo.setPower(0.0);
+            wristServo.setPosition(0.5);
         }
     }
 
-    /*
     public void linear_slides(){
         if (gamepad2.dpad_up){
             slideMotor.setPower(0.4);
@@ -138,5 +139,12 @@ public class TestTeleop extends OpMode {
             slideMotor.setPower(0);
         }
     }
-    */
+
+    public void controls_telemetry(){
+        telemetry.addData("triangle: ",gamepad2.triangle);
+        telemetry.addData("cross: ",gamepad2.cross);
+        telemetry.addData("square: ", gamepad2.square);
+        telemetry.addData("circle: ",gamepad2.circle);
+        telemetry.addData("left_bumper: ",gamepad2.left_bumper);
+    }
 }
