@@ -59,8 +59,8 @@ public class TestDriveTrainJoyStick extends OpMode {
     public void mecanum_drivetrain() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
         //Joystick variables and denominator
         frontLeftMotor.setPower(gamepad2.left_stick_y);
-        frontRightMotor.setPower(gamepad2.right_stick_y);
-        backLeftMotor.setPower(-gamepad2.left_stick_x);
+        frontRightMotor.setPower(-gamepad2.right_stick_y);
+        backLeftMotor.setPower(gamepad2.left_stick_x);
         backRightMotor.setPower(-gamepad2.right_stick_x);
 
         /* bad
