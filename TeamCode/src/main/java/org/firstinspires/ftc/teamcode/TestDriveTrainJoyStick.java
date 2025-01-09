@@ -62,7 +62,7 @@ public class TestDriveTrainJoyStick extends OpMode {
         frontRightMotor.setPower(-gamepad2.right_stick_y);
         backLeftMotor.setPower(gamepad2.left_stick_x);
         backRightMotor.setPower(-gamepad2.right_stick_x);
-
+        //
         /* bad
         double y = gamepad2.left_stick_y;
         double x = -gamepad2.left_stick_x * 1.1;
