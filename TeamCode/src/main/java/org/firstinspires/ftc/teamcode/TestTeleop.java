@@ -53,23 +53,21 @@ public class TestTeleop extends OpMode {
         arm();
         intake();
         wrist();
-        linear_slides();
+        //linear_slides();
     }
 
     public void mecanum_drivetrain() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
-        //Joystick variables and denominator
+        //Joystick variables and denominator (this is the band-aid solution joystick mapping)
+        double y = -gamepad2.right_stick_x;
+        double x = gamepad2.right_stick_y * 1.1;
+        double r = gamepad2.left_stick_y;
 
-        /* bad
+        /* (This is the original mecanum joystick mapping)
         double y = gamepad2.left_stick_y;
         double x = -gamepad2.left_stick_x * 1.1;
         double r = -gamepad2.right_stick_x;
         */
 
-        double y = -gamepad2.right_stick_x;
-        double x = gamepad2.right_stick_y * 1.1;
-        double r = gamepad2.left_stick_y;
-
-        //what does math.max do?
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(r), 1);
 
         //Power variables calculated from joystick variables and denominator
@@ -94,12 +92,11 @@ public class TestTeleop extends OpMode {
             armMotor.setPower(-0.5);
         }
         else if (gamepad2.right_trigger > 0.2){  //If the right trigger is pressed, the arm will close to hang the robot and block input
-            while (true){
+            //The right bumper can unlock the arm and unblock input
+            do {
                 armMotor.setPower(-1);
-                if (gamepad2.right_bumper){ //The right bumper can unlock the arm and unblock input
-                    break;
-                }
-            }
+            } while (!gamepad2.right_bumper);
+
         } else {
             armMotor.setPower(0);
         }
@@ -130,7 +127,7 @@ public class TestTeleop extends OpMode {
         }
     }
 
-
+    /*
     public void linear_slides(){
         if (gamepad2.dpad_up){
             slideMotor.setPower(0.4);
@@ -141,5 +138,5 @@ public class TestTeleop extends OpMode {
             slideMotor.setPower(0);
         }
     }
-
+    */
 }
