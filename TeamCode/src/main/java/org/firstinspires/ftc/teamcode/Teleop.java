@@ -10,9 +10,9 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "Into_the_Deep_Teleop")
+@TeleOp(name = "Teleop")
 
-public class TestTeleop extends OpMode {
+public class Teleop extends OpMode {
 
     public DcMotor frontLeftMotor;
     public DcMotor frontRightMotor;
@@ -32,8 +32,10 @@ public class TestTeleop extends OpMode {
         //Motor Mapping
         frontLeftMotor = hardwareMap.get(DcMotor.class, "frontLeftMotor");
         frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
+        frontRightMotor.setDirection(DcMotor.Direction.REVERSE);
         backLeftMotor = hardwareMap.get(DcMotor.class, "backLeftMotor");
         backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
+        backRightMotor.setDirection(DcMotor.Direction.REVERSE);
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
         slideMotor = hardwareMap.get(DcMotor.class,"slideMotor");
 
@@ -51,6 +53,7 @@ public class TestTeleop extends OpMode {
     @Override
     public void loop() { //This repeats when you hit the start button
         mecanum_drivetrain();
+        //motor_test();
         arm();
         intake();
         wrist();
@@ -58,17 +61,26 @@ public class TestTeleop extends OpMode {
         controls_telemetry();
     }
 
+    public void motor_test() {
+        frontLeftMotor.setPower(gamepad2.left_stick_y);
+        frontRightMotor.setPower(gamepad2.right_stick_y);
+        backLeftMotor.setPower(gamepad2.left_stick_x);
+        backRightMotor.setPower(gamepad2.right_stick_x);
+
+    }
+
     public void mecanum_drivetrain() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
-        //Joystick variables and denominator (this is the band-aid solution joystick mapping)
+
+        /*Joystick variables and denominator (this is the band-aid solution joystick mapping)
         double y = -gamepad2.right_stick_x;
         double x = gamepad2.right_stick_y * 1.1;
         double r = gamepad2.left_stick_y;
+        */
 
-        /* (This is the original mecanum joystick mapping)
+        //(This is the original mecanum joystick mapping)
         double y = gamepad2.left_stick_y;
         double x = -gamepad2.left_stick_x * 1.1;
         double r = -gamepad2.right_stick_x;
-        */
 
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(r), 1);
 
