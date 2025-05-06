@@ -15,6 +15,6 @@ public class AutonomousAutomaton extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        bot.move_left();
+        bot.move(180,5);
     }
 }
