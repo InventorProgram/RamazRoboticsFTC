@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name = "Into_the_Deep_Teleop")
 
@@ -31,8 +32,10 @@ public class TestDriveTrainJoyStick extends OpMode {
         //Motor Mapping
         frontLeftMotor = hardwareMap.get(DcMotor.class, "frontLeftMotor");
         frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
+        frontRightMotor.setDirection(DcMotor.Direction.REVERSE);
         backLeftMotor = hardwareMap.get(DcMotor.class, " backLeftMotor");
         backRightMotor = hardwareMap.get(DcMotor.class, " backRightMotor");
+        backRightMotor.setDirection(DcMotor.Direction.REVERSE);
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
         slideMotor = hardwareMap.get(DcMotor.class,"slideMotor");
 
@@ -41,10 +44,13 @@ public class TestDriveTrainJoyStick extends OpMode {
         wristServo = hardwareMap.get(CRServo.class, "wristServo");
 
         //Setting motors to run using encoders
+        /*
         DcMotor[] motors = {frontLeftMotor,frontRightMotor,backLeftMotor,backRightMotor};
         for (DcMotor motor: motors) {
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
+        */
+
     }
 
     @Override
@@ -59,9 +65,9 @@ public class TestDriveTrainJoyStick extends OpMode {
     public void mecanum_drivetrain() { //Checks joystick input and accordingly sets power level to motors in the mecanum drivetrain
         //Joystick variables and denominator
         frontLeftMotor.setPower(gamepad2.left_stick_y);
-        frontRightMotor.setPower(-gamepad2.right_stick_y);
+        frontRightMotor.setPower(gamepad2.right_stick_y);
         backLeftMotor.setPower(gamepad2.left_stick_x);
-        backRightMotor.setPower(-gamepad2.right_stick_x);
+        backRightMotor.setPower(gamepad2.right_stick_x);
         //
         /* bad
         double y = gamepad2.left_stick_y;
