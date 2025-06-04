@@ -39,6 +39,7 @@ public class Teleop extends OpMode {
         backRightMotor.setDirection(DcMotor.Direction.REVERSE);
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
         armMotor2 = hardwareMap.get(DcMotor.class, "armMotor2");
+        armMotor2.setDirection(DcMotor.Direction.REVERSE);
         slideMotor = hardwareMap.get(DcMotor.class,"slideMotor");
 
         //Servo Mapping
@@ -103,20 +104,22 @@ public class Teleop extends OpMode {
         //armMotor (claw-arm up/down)
         if (gamepad2.y) {
             armMotor.setPower(0.5);
-            armMotor2.setPower(-0.5);
+            armMotor2.setPower(0.5);
         }
         else if (gamepad2.a){
             armMotor.setPower(-0.5);
-            armMotor2.setPower(0.5);
+            armMotor2.setPower(-0.5);
         }
         else if (gamepad2.right_trigger > 0.2){  //If the right trigger is pressed, the arm will close to hang the robot and block input
             //The right bumper can unlock the arm and unblock input
             do {
                 armMotor.setPower(-1);
+                armMotor2.setPower(-1);
             } while (!gamepad2.right_bumper);
 
         } else {
             armMotor.setPower(0);
+            armMotor2.setPower(0);
         }
 
         telemetry.addData("Motor Ticks: ", armMotor.getCurrentPosition());
