@@ -4,16 +4,19 @@ Documentation:
 - Plug in usb-a in computer and a usb-c out to the robot's control hub
 */
 package org.firstinspires.ftc.teamcode;
+import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name = "Into_the_Deep_Teleop")
 
 public class TestDriveTrainJoyStick extends OpMode {
-
+    public DcMotorEx launcher;
     public DcMotor frontLeftMotor;
     public DcMotor frontRightMotor;
     public DcMotor backLeftMotor;
@@ -22,6 +25,7 @@ public class TestDriveTrainJoyStick extends OpMode {
     public DcMotor slideMotor; //Linear slides motor
     public CRServo wristServo;
     public CRServo intakeServo;
+
 
     @Override
     public void init() { //This runs when hitting the init button on the driver station
@@ -39,6 +43,10 @@ public class TestDriveTrainJoyStick extends OpMode {
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
         slideMotor = hardwareMap.get(DcMotor.class,"slideMotor");
 
+
+        launcher = hardwareMap.get(DcMotorEx.class, "launcher");
+        launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        launcher.setZeroPowerBehavior(BRAKE);
         //Servo Mapping
         intakeServo = hardwareMap.get(CRServo.class,"intakeServo");
         wristServo = hardwareMap.get(CRServo.class, "wristServo");

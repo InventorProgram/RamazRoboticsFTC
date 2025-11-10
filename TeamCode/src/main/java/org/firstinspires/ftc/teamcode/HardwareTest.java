@@ -44,9 +44,10 @@ public class HardwareTest extends OpMode {
         double right_stick_x = gamepad2.right_stick_x;
 
         //Left stick y
+        /*
         if (left_stick_y > 0) {
-            frontLeftMotor.setPower(0.5);
-            backLeftMotor.setPower(0.5);
+            frontLeftMotor.setPower(1);
+           // backLeftMotor.setPower(0.5);
         }
 
         else if (left_stick_y < 0) {
@@ -86,5 +87,7 @@ public class HardwareTest extends OpMode {
             backLeftMotor.setPower(-0.5);
             backRightMotor.setPower(-0.5);
         }
+        */
+
     }
 }
